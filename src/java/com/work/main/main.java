@@ -28,6 +28,7 @@ import javax.sql.DataSource;
 @Named
 @ViewScoped
 public class main implements Serializable{
+    
     public void conectar() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -92,5 +93,31 @@ public class main implements Serializable{
             System.out.println("Error: " + ex);
         }
         return ds;
+    }
+    
+    public int insert(Vehiculo vehiculo) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int rows = 0;
+        try {
+            conn = getDataSource("jdbc/OracleVM").getConnection();
+            stmt = conn.prepareStatement(SQL_INSERT);
+            stmt.setString(1, persona.getNombre());
+            stmt.setString(2, persona.getApellido());
+            stmt.setString(3, persona.getEmail());
+            stmt.setString(4, persona.getTelefono());
+
+            System.out.println("ejecutando query:" + SQL_INSERT);
+            rows = stmt.executeUpdate();
+            System.out.println("Registros afectados:" + rows);
+        } finally {
+            Conexion.close(stmt);
+            if (this.conexionTransaccional == null) {
+                Conexion.close(conn);
+            }
+        }
+
+        return rows;
     }
 }
