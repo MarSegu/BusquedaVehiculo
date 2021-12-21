@@ -6,30 +6,37 @@ package com.work.model;
  */
 public class Vehiculo {
     
-    public String idVehiculo;
-    public String codigoHash;
-    
+    public String idVehiculo;    
     public String curp;
+    public int hashCurp;
+    public String matricula;
+    public int hashMatricula;
     public String nSerie;
+    public int hashSerie;
     public String nombre;
     public String apellidos;
     public String direccion;
     public String color;
-    public String matricula;
 
     public Vehiculo() {
     }
 
-    public Vehiculo(String idVehiculo, String curp, String codigoHash, String nSerie, String nombre, String apellidos, String direccion, String color, String matricula) {
+    public Vehiculo(String idVehiculo) {
+        this.idVehiculo = idVehiculo;
+    }
+
+    public Vehiculo(String idVehiculo, String curp, int hashCurp, String matricula, int hashMatricula, String nSerie, int hashSerie, String nombre, String apellidos, String direccion, String color) {
         this.idVehiculo = idVehiculo;
         this.curp = curp;
-        this.codigoHash = codigoHash;
+        this.hashCurp = hashCurp;
+        this.matricula = matricula;
+        this.hashMatricula = hashMatricula;
         this.nSerie = nSerie;
+        this.hashSerie = hashSerie;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.direccion = direccion;
         this.color = color;
-        this.matricula = matricula;
     }
 
     public String getIdVehiculo() {
@@ -48,12 +55,28 @@ public class Vehiculo {
         this.curp = curp;
     }
 
-    public String getCodigoHash() {
-        return codigoHash;
+    public int getHashCurp() {
+        return hashCurp;
     }
 
-    public void setCodigoHash(String codigoHash) {
-        this.codigoHash = codigoHash;
+    public void setHashCurp(int hashCurp) {
+        this.hashCurp = hashCurp;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public int getHashMatricula() {
+        return hashMatricula;
+    }
+
+    public void setHashMatricula(int hashMatricula) {
+        this.hashMatricula = hashMatricula;
     }
 
     public String getnSerie() {
@@ -62,6 +85,14 @@ public class Vehiculo {
 
     public void setnSerie(String nSerie) {
         this.nSerie = nSerie;
+    }
+
+    public int getHashSerie() {
+        return hashSerie;
+    }
+
+    public void setHashSerie(int hashSerie) {
+        this.hashSerie = hashSerie;
     }
 
     public String getNombre() {
@@ -95,18 +126,6 @@ public class Vehiculo {
     public void setColor(String color) {
         this.color = color;
     }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    @Override
-    public String toString() {
-        return "Vehiculo{" + "idVehiculo=" + idVehiculo + ", curp=" + curp + ", codigoHash=" + codigoHash + ", nSerie=" + nSerie + ", nombre=" + nombre + ", apellidos=" + apellidos + ", direccion=" + direccion + ", color=" + color + ", matricula=" + matricula + '}';
-    }    
+    
     
 }
