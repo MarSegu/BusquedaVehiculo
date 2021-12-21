@@ -29,7 +29,7 @@ and open the template in the editor.
                                     </h:outputLabel>
                                      <h:inputText  maxlength="500" 
                                        class="form-control "  id="seleccion" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.valorBusqueda}" required="true" />
                                 </div>
                                 
                                 <div class="col-md-4">
@@ -39,7 +39,7 @@ and open the template in the editor.
                                     </h:outputLabel>
                                      <h:inputText  maxlength="200" 
                                        class="form-control "  id="seleccion2" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.valorBusqueda}" required="true"/>
                                 </div>
                                
                                 <div class="col-md-4">
@@ -49,7 +49,7 @@ and open the template in the editor.
                                     </h:outputLabel>
                                      <h:inputText  maxlength="200" 
                                        class="form-control "  id="seleccion21" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.valorBusqueda}" required="true"/>
                                 </div>
                                 
                             </div>  
@@ -64,7 +64,7 @@ and open the template in the editor.
                                     </h:outputLabel>
                                      <h:inputText  maxlength="500" 
                                        class="form-control "  id="seleccion4" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.getnSerie}"  required="true"/>
                                 </div>
                                 
                                 <div class="col-md-4">
@@ -74,7 +74,7 @@ and open the template in the editor.
                                     </h:outputLabel>
                                      <h:inputText  maxlength="200" 
                                        class="form-control "  id="seleccion5" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.color}" required="true"/>
                                 </div>
                                
                                 <div class="col-md-4">
@@ -84,19 +84,20 @@ and open the template in the editor.
                                     </h:outputLabel>
                                      <h:inputText  maxlength="200" 
                                        class="form-control "  id="seleccion216" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.matricula}" required="true"/>
                                 </div>
                                 
                             </div> 
                        
-                       <div class="row form-row mt-3">  
-                           <h:outputLabel id="Mensaje1232" class="font-weight-bold" for="Mensaje">
-                                        Direccion: 
-                                        <h:outputLabel class="h5 text-danger" value="*" />
-                            </h:outputLabel>
-                         <h:inputTextarea class="form-control form-inline " id="Mensaje62" value="#{parametrizacionBotBean.mensaje}"
-                                                     onkeyup="" onblur=""/>
-                        </div> 
+                                <div class="row form-row mt-3">  
+                                    <h:outputLabel id="Mensaje1232" class="font-weight-bold" for="Mensaje">
+                                                 Direccion: 
+                                                 <h:outputLabel class="h5 text-danger" value="*" />
+                                     </h:outputLabel>
+                                  <h:inputTextarea class="form-control form-inline " id="Mensaje62" value="#{parametrizacionBotBean.mensaje}"
+                                                              onkeyup="" onblur="" required="true"/>
+                                 </div> 
+                       
                         </h:panelGroup>       
                    
 

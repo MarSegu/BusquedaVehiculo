@@ -34,7 +34,7 @@ public class main implements Serializable{
     private String valorBusqueda;
     
     private String tipoBusqueda;
-    
+      
     public void conectar() {
         Connection conn = null;
         PreparedStatement stmt = null;

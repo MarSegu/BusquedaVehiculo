@@ -54,26 +54,52 @@
                                                  value="#{main.vehiculos}"
                                                  var="vehiculos"
                                                  class="tableViewCont table table-sm table-striped table-hover w-100">
-                                        #{vehiculos.color}
+                                      
+                                        
+                                          <h:column id="columncurp">
+                                            <f:facet id="facetColumncurp" name="header">
+                                                <h:outputLabel id="optLabelcurp" value="Curp"/>
+                                            </f:facet>
+                                            <h:outputText id="optxColumcurp" value="#{vehiculos.curp}"/>
+                                        </h:column>
+                                        
                                         <h:column id="IdAlerta">
                                             <f:facet id="facetColumnIdAlerta" name="header">
                                                 <h:outputLabel id="optLabelIdAlerta" value="Nombre"/>
                                             </f:facet>
                                             <h:outputText id="optxColumIdAlerta" value="#{vehiculos.nombre}"/>
                                         </h:column>
+                                        
                                         <h:column id="columnUsuario">
                                             <f:facet id="facetColumnUsuario" name="header">
                                                 <h:outputLabel id="optLabelUsuario" value="Apellido"/>
                                             </f:facet>
                                             <h:outputText id="optxColumUsuario" value="#{vehiculos.apellidos}"/>
                                         </h:column>
-                                        <h:column id="columnFecha"  >
-                                            <f:facet id="facetColumnFecha" name="Curp">
-                                                <h:outputLabel id="optLabelCurp" value="Curp"/>
+                                        
+                                        
+                                        <h:column id="columnnombre">
+                                            <f:facet id="facetColumnnombre" name="header">
+                                                <h:outputLabel id="optLabelnombre" value="Nombre"/>
                                             </f:facet>
-                                            <h:outputText id="fecha" value="#{vehiculos.curp}"  >
-                                            </h:outputText>
+                                              <h:outputText id="optxColumnombre" value="#{vehiculos.nombre}"/>
                                         </h:column>
+                                        
+                                        <h:column id="columndireccion">
+                                            <f:facet id="facetColumndireccion" name="header">
+                                                <h:outputLabel id="optLabeldireccion" value="Direccion"/>
+                                            </f:facet>
+                                            <h:outputText id="optxColumdireccion" value="#{vehiculos.direccion}"/>
+                                        </h:column>
+                                        
+                                        
+                                         <h:column id="columnidVehiculo">
+                                            <f:facet id="facetColumnidVehiculo" name="header">
+                                                <h:outputLabel id="optLabelidVehiculo" value="idVehiculo"/>
+                                            </f:facet>
+                                             <h:outputText id="optxColumidVehiculo" value="#{vehiculos.idVehiculo}"/>
+                                        </h:column>
+                                          
                                     </h:dataTable>
                                 </div>
                             </div>
@@ -82,4 +108,6 @@
             </div>
     </h:body>
 </html>
+
+
 
