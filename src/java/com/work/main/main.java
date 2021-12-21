@@ -28,27 +28,33 @@ import javax.sql.DataSource;
 @Named
 @ViewScoped
 public class main implements Serializable{
+    
+    private List<Vehiculo> vehiculos = new ArrayList<>();
+        
+    private String valorBusqueda;
+    
+    private String tipoBusqueda;
+    
     public void conectar() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Vehiculo vehiculo = null;
-        List<Vehiculo> vehiculos = new ArrayList<>();
+        String idVehiculo = "";
+        String curp = "";
+        String codigoHash = "";
+        String nSerie = "";
+        String nombre = "";
+        String apellidos = "";
+        String matricula = "";
+        String direccion = "";
+        String color = "";
+       
         try {
             conn = getDataSource("jdbc/OracleVM").getConnection();            
             stmt = conn.prepareCall("SELECT * FROM VEHICULOPRUEBA");            
             rs = stmt.executeQuery();
-
-            String idVehiculo = "";
-            String curp = "";
-            String codigoHash = "";
-            String nSerie = "";
-            String nombre = "";
-            String apellidos = "";
-            String matricula = "";
-            String direccion = "";
-            String color = "";
-            
+     
             while (rs.next()) {
                 idVehiculo = rs.getString("ID_VEHICULO");
                 curp = rs.getString("CURP");
@@ -70,15 +76,20 @@ public class main implements Serializable{
                 vehiculo.setMatricula(matricula);
                 vehiculo.setDireccion(direccion);
                 vehiculo.setColor(color);
-                
                 vehiculos.add(vehiculo);
             }
+           
             
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void limpiar(){
+        tipoBusqueda =""; 
+        valorBusqueda =""; 
+    }
+    
     public DataSource getDataSource(String jdni) {
         
         InitialContext ctx;
@@ -93,4 +104,31 @@ public class main implements Serializable{
         }
         return ds;
     }
+
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(List<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    public String getTipoBusqueda() {
+        return tipoBusqueda;
+    }
+
+    public void setTipoBusqueda(String tipoBusqueda) {
+        this.tipoBusqueda = tipoBusqueda;
+    }
+
+    public String getValorBusqueda() {
+        return valorBusqueda;
+    }
+
+    public void setValorBusqueda(String valorBusqueda) {
+        this.valorBusqueda = valorBusqueda;
+    }
+
+    
+    
 }
