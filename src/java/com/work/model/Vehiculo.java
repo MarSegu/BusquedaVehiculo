@@ -5,9 +5,11 @@ package com.work.model;
  * @author Admin
  */
 public class Vehiculo {
+    
     public String idVehiculo;
-    public String curp;
     public String codigoHash;
+    
+    public String curp;
     public String nSerie;
     public String nombre;
     public String apellidos;
