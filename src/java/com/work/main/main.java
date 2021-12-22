@@ -37,15 +37,14 @@ public class main implements Serializable{
     
     private String tipoBusqueda;
     
-    private final String SQL_INSERT = "INSERT INTO VEHICULOPRUEBA v ( v.id_vehiculo, v.curp, v.hash_curp, v.matricula, v.hash_matricula, v.nserie, v.hash_nserie, v.nombre, v.apellidos, v.direccion, v.color)" +
-                                      "VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');";
+    private final String SQL_INSERT = "INSERT INTO VEHICULOPRUEBA v ( v.curp, v.hash_curp, v.matricula, v.hash_matricula, v.nserie, v.hash_nserie, v.nombre, v.apellidos, v.direccion, v.color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     @PostConstruct
     public void init(){
         vehiculo = new Vehiculo();
     }   
     
-    public void conectar() {
+    public void consultar() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -73,7 +72,6 @@ public class main implements Serializable{
                 apellidos = rs.getString("APELLIDOS");
                 direccion = rs.getString("DIRECCION");
                 color = rs.getString("COLOR");
-                
                 vehiculo = new Vehiculo();
                 vehiculo.setIdVehiculo(idVehiculo);
                 vehiculo.setCurp(curp);
@@ -94,6 +92,7 @@ public class main implements Serializable{
     public void limpiar(){
         tipoBusqueda =""; 
         valorBusqueda =""; 
+        vehiculos =  new ArrayList<>();
     }
     
     public DataSource getDataSource(String jdni) {
@@ -111,7 +110,7 @@ public class main implements Serializable{
         return ds;
     }
     
-    public int insert() throws SQLException {
+    public void insert() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -136,8 +135,7 @@ public class main implements Serializable{
         } catch(Exception ex){
             System.out.println("Error insertando: " + ex);
         }
-
-        return rows;
+        consultar();
     }
 
     public List<Vehiculo> getVehiculos() {

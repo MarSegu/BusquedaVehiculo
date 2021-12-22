@@ -6,17 +6,17 @@ package com.work.model;
  */
 public class Vehiculo {
     
-    public String idVehiculo;    
-    public String curp;
-    public int hashCurp;
-    public String matricula;
-    public int hashMatricula;
-    public String nSerie;
-    public int hashSerie;
-    public String nombre;
-    public String apellidos;
-    public String direccion;
-    public String color;
+    private String idVehiculo;    
+    private String curp;
+    private int hashCurp;
+    private String matricula;
+    private int hashMatricula;
+    private String nSerie;
+    private int hashSerie;
+    private String nombre;
+    private String apellidos;
+    private String direccion;
+    private String color;
 
     public Vehiculo() {
     }
@@ -79,13 +79,7 @@ public class Vehiculo {
         this.hashMatricula = hashMatricula;
     }
 
-    public String getnSerie() {
-        return nSerie;
-    }
 
-    public void setnSerie(String nSerie) {
-        this.nSerie = nSerie;
-    }
 
     public int getHashSerie() {
         return hashSerie;
@@ -125,6 +119,14 @@ public class Vehiculo {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getnSerie() {
+        return nSerie;
+    }
+
+    public void setnSerie(String nSerie) {
+        this.nSerie = nSerie;
     }
     
     

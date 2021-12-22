@@ -7,20 +7,21 @@
          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
     </h:head>
     <h:body>
-        
-            
+ 
         <div class="container my-3" id="paramentrizacionesAlerta" >      
             <div class="card bg-primary text-white">
-                        <h4 class="card-header text-center ">Registro Vehiculos</h4>        
+                     <div class="card-header">
+                         <h:link outcome="index.xhtml"  value="Home" class="btn btn-primary"/> 
+                         <h4 class="text-center" >Registro Vehiculos</h4>
+                     </div>       
                     </div>   
-           
-                <div class="row form-row">                                                 
-                    <div class="col-md-4">
-                        <h:link outcome="consulta.xhtml"  value="Consulta"/>         
+                <div class="row form-row mt-5 text-center">                                                 
+                    <div class="col-md-6">
+                        <h:link outcome="consulta.xhtml"  value="Consulta" class="btn btn-primary"/>         
                         <i class="bi bi-cloud-plus"></i>
                     </div>
-                  <div class="col-md-4">
-                    <h:link outcome="agregar.xhtml" value="Registro"/>
+                  <div class="col-md-6 ">
+                    <h:link outcome="agregar.xhtml" value="Registro" class="btn btn-primary"/>
                     <i class="bi bi-cloud-plus"></i>
                    </div>
                

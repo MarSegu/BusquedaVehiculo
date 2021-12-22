@@ -15,11 +15,14 @@ and open the template in the editor.
          <div class="container my-3" id="paramentrizacionesAlerta" >
                 <h:form>
                     <div class="card bg-primary text-white">
-                        <h4 class="card-header text-center ">Registro Vehiculos</h4>        
+                       <div class="card-header">
+                         <h:link outcome="index.xhtml"  value="Home" class="btn btn-primary"/> 
+                         <h4 class="text-center" >Registro Vehiculos</h4>
+                     </div>         
                     </div>   
 
                      
-                   <h:panelGroup class="card-body " id="pnlgparametrizacionMensaje2">
+                   <h:panelGroup class="card-body " id="panelInsert">
                             <div class="row form-row">                                       
                                  
                                 <div class="col-md-4">
@@ -27,9 +30,10 @@ and open the template in the editor.
                                         Curp: 
                                         <h:outputLabel class="h5 text-danger" value="*" />
                                     </h:outputLabel>
-                                     <h:inputText  maxlength="500" 
+                                     <h:inputText  maxlength="18" 
                                        class="form-control "  id="seleccion" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.curp}" required="true"
+                                       />
                                 </div>
                                 
                                 <div class="col-md-4">
@@ -37,9 +41,9 @@ and open the template in the editor.
                                         Nombre: 
                                         <h:outputLabel class="h5 text-danger" value="*" />
                                     </h:outputLabel>
-                                     <h:inputText  maxlength="200" 
+                                     <h:inputText  maxlength="30" 
                                        class="form-control "  id="seleccion2" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.nombre}" required="true"/>
                                 </div>
                                
                                 <div class="col-md-4">
@@ -47,9 +51,9 @@ and open the template in the editor.
                                         Apellido: 
                                         <h:outputLabel class="h5 text-danger" value="*" />
                                     </h:outputLabel>
-                                     <h:inputText  maxlength="200" 
+                                     <h:inputText  maxlength="30" 
                                        class="form-control "  id="seleccion21" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.apellidos}" required="true"/>
                                 </div>
                                 
                             </div>  
@@ -62,9 +66,9 @@ and open the template in the editor.
                                         Numero Serie: 
                                         <h:outputLabel class="h5 text-danger" value="*" />
                                     </h:outputLabel>
-                                     <h:inputText  maxlength="500" 
+                                     <h:inputText  maxlength="100" 
                                        class="form-control "  id="seleccion4" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.nSerie}"  required="true"/>
                                 </div>
                                 
                                 <div class="col-md-4">
@@ -72,9 +76,9 @@ and open the template in the editor.
                                         Color: 
                                         <h:outputLabel class="h5 text-danger" value="*" />
                                     </h:outputLabel>
-                                     <h:inputText  maxlength="200" 
+                                     <h:inputText  maxlength="10" 
                                        class="form-control "  id="seleccion5" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.color}" required="true"/>
                                 </div>
                                
                                 <div class="col-md-4">
@@ -82,30 +86,92 @@ and open the template in the editor.
                                         Matricula: 
                                         <h:outputLabel class="h5 text-danger" value="*" />
                                     </h:outputLabel>
-                                     <h:inputText  maxlength="200" 
+                                     <h:inputText  maxlength="7" 
                                        class="form-control "  id="seleccion216" 
-                                       value="#{main.valorBusqueda}" />
+                                       value="#{main.vehiculo.matricula}" required="true"/>
                                 </div>
                                 
                             </div> 
                        
-                       <div class="row form-row mt-3">  
-                           <h:outputLabel id="Mensaje1232" class="font-weight-bold" for="Mensaje">
-                                        Direccion: 
-                                        <h:outputLabel class="h5 text-danger" value="*" />
-                            </h:outputLabel>
-                         <h:inputTextarea class="form-control form-inline " id="Mensaje62" value="#{parametrizacionBotBean.mensaje}"
-                                                     onkeyup="" onblur=""/>
-                        </div> 
+                                <div class="row form-row mt-3">  
+                                    <h:outputLabel id="Mensaje1232" class="font-weight-bold" for="Mensaje">
+                                                 Direccion: 
+                                                 <h:outputLabel class="h5 text-danger" value="*" />
+                                     </h:outputLabel>
+                                                 <h:inputTextarea class="form-control form-inline " id="Mensaje62" value="#{main.vehiculo.direccion}"
+                                                              onkeyup="" onblur="" required="true"/>
+                                 </div> 
+                       
                         </h:panelGroup>       
                    
 
                     <div class="form-group col justify-content-center text-center">
                           <h:commandButton id="btnConsultar" class="btn btn-primary" value="Guardar"                                             
-                                                      action="#{main.conectar()}">
-                          <f:ajax listener="#{main.limpiar()}" render="consultas"/>
+                                           action="#{main.insert()}">
+                              <f:ajax render="tabla" />
                           </h:commandButton>
                      </div>   
+                    
+                       <h:panelGroup id="tabla">
+                            <div class="list-group-item">
+                                <div  class="table-responsive" style="width:100%; ">
+                                    <h:dataTable id="tablaAlertas"
+                                                 value="#{main.vehiculos}"
+                                                 var="vehiculos"
+                                                 class="tableViewCont table table-sm table-striped table-hover w-100">
+                                      
+                                        
+                                          <h:column id="columncurp">
+                                            <f:facet id="facetColumncurp" name="header">
+                                                <h:outputLabel id="optLabelcurp" value="Curp"/>
+                                            </f:facet>
+                                            <h:outputText id="optxColumcurp" value="#{vehiculos.curp}"/>
+                                        </h:column>
+                                        
+                                        <h:column id="IdAlerta">
+                                            <f:facet id="facetColumnIdAlerta" name="header">
+                                                <h:outputLabel id="optLabelIdAlerta" value="Nombre"/>
+                                            </f:facet>
+                                            <h:outputText id="optxColumIdAlerta" value="#{vehiculos.nombre}"/>
+                                        </h:column>
+                                        
+                                        <h:column id="columnUsuario">
+                                            <f:facet id="facetColumnUsuario" name="header">
+                                                <h:outputLabel id="optLabelUsuario" value="Apellido"/>
+                                            </f:facet>
+                                            <h:outputText id="optxColumUsuario" value="#{vehiculos.apellidos}"/>
+                                        </h:column>
+                                        
+                                        
+                                        <h:column id="columnnombre">
+                                            <f:facet id="facetColumnnombre" name="header">
+                                                <h:outputLabel id="optLabelnombre" value="nSerie"/>
+                                            </f:facet>
+                                            <h:outputText id="optxColumnombre" value="#{vehiculos.nSerie}"/>
+                                        </h:column>
+                                        
+                                        <h:column id="columndireccion">
+                                            <f:facet id="facetColumndireccion" name="header">
+                                                <h:outputLabel id="optLabeldireccion" value="Direccion"/>
+                                            </f:facet>
+                                            <h:outputText id="optxColumdireccion" value="#{vehiculos.direccion}"/>
+                                        </h:column>
+                                        
+                                        
+                                         <h:column id="columnidVehiculo">
+                                            <f:facet id="facetColumnidVehiculo" name="header">
+                                                <h:outputLabel id="optLabelidVehiculo" value="idVehiculo"/>
+                                            </f:facet>
+                                             <h:outputText id="optxColumidVehiculo" value="#{vehiculos.idVehiculo}"/>
+                                        </h:column>
+                                          
+                                    </h:dataTable>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    
+                    
+                    
                 </h:form>
             </div>
     </body>
