@@ -36,24 +36,31 @@ public class main implements Serializable{
     private String valorBusqueda;
     
     private String tipoBusqueda;
-    
-    private final String SQL_SELECT = "SELECT * FROM VEHICULOPRUEBA";
-    private final String SQL_SELECT_MATRICULA = "SELECT * FROM VEHICULOPRUEBA v WHERE v.matricula LIKE ?";
-    private final String SQL_SELECT_CURP = "SELECT * FROM VEHICULOPRUEBA v WHERE v.curp LIKE ?";
-    private final String SQL_SELECT_NSERIE = "SELECT * FROM VEHICULOPRUEBA v WHERE v.nserie LIKE ?";
-    private final String SQL_INSERT = "INSERT INTO VEHICULOPRUEBA v ( v.id_vehiculo, v.curp, v.hash_curp, v.matricula, v.hash_matricula, v.nserie, v.hash_nserie, v.nombre, v.apellidos, v.direccion, v.color)" +
-                                      "VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');";
+    private String mensaje;
+    private double tiempo;
 
+    private final String SQL_SELECT = "SELECT * FROM VEHICULOPRUEBA";
+    private final String SQL_SELECT_MATRICULA = "SELECT * FROM VEHICULOPRUEBA v WHERE v.hash_matricula LIKE ?";
+    private final String SQL_SELECT_CURP = "SELECT * FROM VEHICULOPRUEBA v WHERE v.hash_curp LIKE ?";
+    private final String SQL_SELECT_NSERIE = "SELECT * FROM VEHICULOPRUEBA v WHERE v.hash_nserie LIKE ?";
+    private final String SQL_INSERT = "INSERT INTO VEHICULOPRUEBA v ( v.curp, v.hash_curp, v.matricula, v.hash_matricula, v.nserie, v.hash_nserie, v.nombre, v.apellidos, v.direccion, v.color)"+
+                                      " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
     @PostConstruct
     public void init(){
         vehiculo = new Vehiculo();
     }   
     
-    public void conectar() {
+    public void consultar() throws SQLException {
+//        if(!validarCampos()){
+//            return;
+//        }
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
+        vehiculos =  new ArrayList<>();
         String idVehiculo = "";
         String curp = "";
         String matricula = "";
@@ -62,10 +69,18 @@ public class main implements Serializable{
         String apellidos = "";
         String direccion = "";
         String color = "";
-       
+        long inicio = System.currentTimeMillis();
         try {
             conn = getDataSource("jdbc/OracleVM").getConnection();            
-            stmt = conn.prepareCall("SELECT * FROM VEHICULOPRUEBA");            
+            stmt = this.tipoBusqueda.equalsIgnoreCase("Matricula")? conn.prepareCall(SQL_SELECT_MATRICULA): 
+                    this.tipoBusqueda.equalsIgnoreCase("CURP")?conn.prepareCall(SQL_SELECT_CURP):
+                    this.tipoBusqueda.equalsIgnoreCase("Numero de Serie") ? conn.prepareCall(SQL_SELECT_NSERIE):
+                    conn.prepareCall(SQL_SELECT);
+            if(this.tipoBusqueda.equalsIgnoreCase("Matricula") || 
+                    this.tipoBusqueda.equalsIgnoreCase("CURP") || 
+                    this.tipoBusqueda.equalsIgnoreCase("Numero de Serie")){
+                stmt.setInt(1, this.valorBusqueda.hashCode());
+            }            
             rs = stmt.executeQuery();
      
             while (rs.next()) {
@@ -77,7 +92,6 @@ public class main implements Serializable{
                 apellidos = rs.getString("APELLIDOS");
                 direccion = rs.getString("DIRECCION");
                 color = rs.getString("COLOR");
-                
                 vehiculo = new Vehiculo();
                 vehiculo.setIdVehiculo(idVehiculo);
                 vehiculo.setCurp(curp);
@@ -89,15 +103,34 @@ public class main implements Serializable{
                 vehiculo.setColor(color);
                 vehiculos.add(vehiculo);
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            long fin = System.currentTimeMillis();
+            tiempo = (double) ((fin - inicio));
+        }finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }          
         }
+        
+    }
+    
+    public boolean validarCampos(){
+        boolean validar = true;
+        if(tipoBusqueda!=null && valorBusqueda!=null){
+            if(tipoBusqueda.length() == 0 || valorBusqueda.length() == 0){
+                validar = false;
+            }
+        }else{
+            validar = false;
+        }
+        return validar;
     }
 
     public void limpiar(){
         tipoBusqueda =""; 
-        valorBusqueda =""; 
+        valorBusqueda ="";        
     }
     
     public DataSource getDataSource(String jdni) {
@@ -115,7 +148,7 @@ public class main implements Serializable{
         return ds;
     }
     
-    public int insert() throws SQLException {
+    public void insert() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -137,13 +170,18 @@ public class main implements Serializable{
             System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
-        } catch(Exception ex){
-            System.out.println("Error insertando: " + ex);
+        }finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }         
         }
-
-        return rows;
+        this.tipoBusqueda = "";
+        consultar();
     }
-
+    
     public List<Vehiculo> getVehiculos() {
         return vehiculos;
     }
@@ -175,5 +213,22 @@ public class main implements Serializable{
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public double getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(double tiempo) {
+        this.tiempo = tiempo;
+    }
+    
     
 }
