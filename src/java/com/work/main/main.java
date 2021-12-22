@@ -37,6 +37,10 @@ public class main implements Serializable{
     
     private String tipoBusqueda;
     
+    private final String SQL_SELECT = "SELECT * FROM VEHICULOPRUEBA";
+    private final String SQL_SELECT_MATRICULA = "SELECT * FROM VEHICULOPRUEBA v WHERE v.matricula LIKE ?";
+    private final String SQL_SELECT_CURP = "SELECT * FROM VEHICULOPRUEBA v WHERE v.curp LIKE ?";
+    private final String SQL_SELECT_NSERIE = "SELECT * FROM VEHICULOPRUEBA v WHERE v.nserie LIKE ?";
     private final String SQL_INSERT = "INSERT INTO VEHICULOPRUEBA v ( v.id_vehiculo, v.curp, v.hash_curp, v.matricula, v.hash_matricula, v.nserie, v.hash_nserie, v.nombre, v.apellidos, v.direccion, v.color)" +
                                       "VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');";
 
